@@ -1,3 +1,5 @@
+- url: /geo
+  script: geo.py
 
 - url: /css
   static_dir: css
