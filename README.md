@@ -25,3 +25,12 @@ requires: "ip"
 returns: location data
 
     - {"latitude": "36.153999", "location": "US, OK, Oklahoma, Tulsa, 74102", "longitude": "-95.992798"}
+
+#### setup
+
+The IP API uses the geoiplookup tool, which can be acquired
+on Debian-based systems with the following command:
+
+	sudo apt install geoip-bin
+
+That's it!
