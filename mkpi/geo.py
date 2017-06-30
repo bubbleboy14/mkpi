@@ -46,7 +46,10 @@ from cantools.web import respond, succeed, fail, cgi_get
 from cantools.util import output
 
 def iplookup(ip):
-	parts = output("geoiplookup %s -f GeoLiteCity.dat"%(ip,)).split(": ")[1].split(", ")
+	out = output("geoiplookup %s -f GeoLiteCity.dat"%(ip,)).split(": ")[1]
+	if "IP Address not found" in out:
+		return { "location": "unknown", "latitude": "unknown", "longitude": "unknown" }
+	parts = out.split(", ")
 	return {
 		"location": ", ".join(parts[0:5]),
 		"latitude": parts[5],
