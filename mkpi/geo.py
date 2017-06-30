@@ -34,18 +34,23 @@ That's it!
 from cantools.web import respond, succeed, fail, cgi_get
 from cantools.util import output
 
+def iplookup(ip):
+	parts = output("geoiplookup %s -f GeoLiteCity.dat"%(ip,)).split(": ")[1].split(", ")
+	return {
+		"location": ", ".join(parts[0:5]),
+		"latitude": parts[5],
+		"longitude": parts[6]
+	}
+
 def response():
-	action = cgi_get("action", choices=["zip", "ip"])
+	action = cgi_get("action", choices=["zip", "ip", "ips"])
 	if action == "zip":
 		import zipcodes
 		succeed(zipcodes.codes.get(cgi_get("code"), ["unknown", "unknown", "unknown"]))
 	elif action == "ip":
-		parts = output("geoiplookup %s -f GeoLiteCity.dat"%(cgi_get("ip"),)).split(": ")[1].split(", ")
-		succeed({
-			"location": ", ".join(parts[0:5]),
-			"latitude": parts[5],
-			"longitude": parts[6]
-		})
+		succeed(iplookup(cgi_get("ip")))
+	elif action == "ips":
+		succeed(map(iplookup, cgi_get("ips")))
 	else:
 		fail("no such action: %s"%(action,))
 
