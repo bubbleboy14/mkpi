@@ -42,7 +42,7 @@ on Debian-based systems with the following command:
 That's it!
 """
 
-from cantools.web import respond, succeed, fail, cgi_get
+from cantools.web import log, respond, succeed, fail, cgi_get
 from cantools.util import output
 
 def iplookup(ip):
@@ -50,11 +50,15 @@ def iplookup(ip):
 	if "IP Address not found" in out:
 		return { "location": "unknown", "latitude": "unknown", "longitude": "unknown" }
 	parts = out.split(", ")
-	return {
-		"location": ", ".join(parts[0:5]),
-		"latitude": parts[5],
-		"longitude": parts[6]
-	}
+	try:
+		return {
+			"location": ", ".join(parts[0:5]),
+			"latitude": parts[5],
+			"longitude": parts[6]
+		}
+	except:
+		log("failure: %s"%(out,))
+		return { "location": "unknown", "latitude": "unknown", "longitude": "unknown" }
 
 def response():
 	action = cgi_get("action", choices=["zip", "ip", "ips"])
@@ -65,7 +69,5 @@ def response():
 		succeed(iplookup(cgi_get("ip")))
 	elif action == "ips":
 		succeed(map(iplookup, cgi_get("ips")))
-	else:
-		fail("no such action: %s"%(action,))
 
 respond(response)
