@@ -1,10 +1,8 @@
 # mkpi
 
-A set of web APIs.
-
 ## geo.py
 
-The Geo (/geo) APIs are as follows:
+Geo (/geo) API:
 
 ### action = zip
 
@@ -45,3 +43,15 @@ on Debian-based systems with the following command:
 	sudo apt install geoip-bin
 
 That's it!
+
+## prox.py
+
+Prox (/prox) API:
+
+### action = pass (default)
+
+requires: "url"
+
+    - /prox?url=https://google.com
+
+returns: requested resource
