@@ -1,5 +1,5 @@
 """
-The Geo (/geo) APIs are as follows:
+Geo (/geo) API:
 
 ### action = zip
 
