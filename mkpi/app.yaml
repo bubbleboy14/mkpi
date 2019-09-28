@@ -1,3 +1,6 @@
+- url: /prox
+  script: prox.py
+
 - url: /geo
   script: geo.py
 
