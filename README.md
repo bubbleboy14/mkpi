@@ -2,6 +2,7 @@
 
 A set of web APIs.
 
+
 ## geo.py
 
 Geo (/geo) API:
@@ -54,6 +55,6 @@ Prox (/prox) API:
 
 requires: "url"
 
-    - /prox?url=https://google.com
+    - /prox?url=https%3A//google.com/
 
 returns: requested resource
