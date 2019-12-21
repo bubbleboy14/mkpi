@@ -5,12 +5,12 @@ Prox (/prox) API:
 
 requires: "url"
 
-    - /prox?url=https://google.com
+    - /prox?url=https%3A//google.com/
 
 returns: requested resource
 """
 
-import requests
+import requests, urllib
 from datetime import datetime, timedelta
 from cantools.web import respond, succeed, cgi_get
 from cantools.util import log
@@ -36,6 +36,6 @@ def cache(url):
 	return CACHE[url]
 
 def response():
-	succeed(cache(cgi_get("url")))
+	succeed(cache(urllib.unquote(cgi_get("url"))))
 
 respond(response)
