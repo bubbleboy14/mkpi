@@ -30,7 +30,7 @@ def response():
 			s.put()
 		succeed(s.code)
 	elif k:
-		s = Short.query(Short.code.like("%s%%"%(k,))).get()
+		s = Short.query(Short.code == k[:5]).get()
 		s and local("redir")(s.url)
 
 respond(response)
