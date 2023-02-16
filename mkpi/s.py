@@ -3,13 +3,13 @@ Short (/s) API:
 
 ### requires: "u"
 
-    - /u=https://www.google.com
+    - /s?u=https://www.google.com
 
 which returns: shortened version of url
 
 ### or: "k"
 
-    - /k=aXzHO
+    - /s?k=aXzHO
 
 which returns: 302 redirect
 """
