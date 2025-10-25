@@ -12,7 +12,7 @@ returns: requested resource
 
 import requests, urllib
 from datetime import datetime, timedelta
-from cantools.web import respond, succeed, cgi_get
+from cantools.web import respond, send_file, cgi_get
 from cantools.util import log
 from cantools import config
 
@@ -36,6 +36,6 @@ def cache(url):
 	return CACHE[url]
 
 def response():
-	succeed(cache(urllib.unquote(cgi_get("url"))))
+	send_file(cache(urllib.parse.unquote(cgi_get("url"))), detect=True)
 
 respond(response)
